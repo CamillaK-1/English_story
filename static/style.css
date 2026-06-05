@@ -332,12 +332,11 @@ h1 {
 
     inset: 0;
 
-    background-image:
-        url("/static/background.png");
-
     background-size: cover;
 
     background-position: center;
+
+    background-image: url("{{ url_for('static', filename='Background.png') }}");
 
     filter:
         brightness(0.72)
