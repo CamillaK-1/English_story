@@ -336,8 +336,6 @@ h1 {
 
     background-position: center;
 
-    background-image: url("{{ url_for('static', filename='Background.png') }}");
-
     filter:
         brightness(0.72)
         saturate(0.92);
