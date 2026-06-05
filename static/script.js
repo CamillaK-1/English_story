@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Story form handling
+    // Story form handling – no flash, animation intact
     const forms = document.querySelectorAll(".story-form");
 
     forms.forEach(form => {
@@ -26,101 +26,77 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const wrapper = document.querySelector(".book-wrapper");
-
-            // Hide original book immediately
-            if (wrapper) {
-                wrapper.style.visibility = "hidden";
-            }
-
             const rect = page.getBoundingClientRect();
 
-            // Create overlay
+            // Create overlay – start fully visible but transparent? No, we'll build it in place
             const overlay = document.createElement("div");
             overlay.className = "flipbook-overlay";
 
             overlay.style.position = "fixed";
-            overlay.style.left = "0";
-            overlay.style.top = "0";
-            overlay.style.width = "100vw";
-            overlay.style.height = "100vh";
-            overlay.style.display = "grid";
-            overlay.style.placeItems = "center";
+            overlay.style.left = rect.left + "px";
+            overlay.style.top = rect.top + "px";
+            overlay.style.width = rect.width + "px";
+            overlay.style.height = rect.height + "px";
             overlay.style.zIndex = "99999";
             overlay.style.overflow = "hidden";
+            // Initially make it take no space but be ready
+            overlay.style.opacity = "0";
+            overlay.style.visibility = "hidden";
 
             document.body.appendChild(overlay);
 
-            // Create flipbook
+            // Build flipbook with exact dimensions
             const flipbook = document.createElement("div");
             flipbook.className = "flipbook";
-
-            flipbook.style.width = Math.round(rect.width) + "px";
-            flipbook.style.height = Math.round(rect.height) + "px";
+            flipbook.style.width = "100%";
+            flipbook.style.height = "100%";
 
             overlay.appendChild(flipbook);
 
-            // PAGE 1 = current chapter
+            // PAGE 1 = clone of original page but with text/children hidden
             const p1 = document.createElement("div");
             p1.className = "book-page";
 
-            const sourceContent =
-                page.querySelector(".page-content");
-
+            const sourceContent = page.querySelector(".page-content");
             if (sourceContent) {
-                p1.appendChild(
-                    sourceContent.cloneNode(true)
-                );
+                const clone = sourceContent.cloneNode(true);
+                // Hide all content (text, images, etc.) but keep background
+                clone.style.opacity = "0";
+                clone.style.visibility = "hidden";
+                p1.appendChild(clone);
             }
+            // Copy computed background from original page
+            const originalBg = window.getComputedStyle(page).background;
+            p1.style.background = originalBg;
 
-            // PAGE 2 = next chapter
+            // PAGE 2 = next chapter (fully visible)
             const p2 = document.createElement("div");
             p2.className = "book-page";
 
-            const template =
-                document.querySelector("#next-page-template");
-
+            const template = document.querySelector("#next-page-template");
             if (template) {
                 p2.innerHTML = template.innerHTML;
             }
-
-            const paperBg =
-                "linear-gradient(180deg, var(--paper), var(--paper-dark))";
-
-            p1.style.background = paperBg;
-            p2.style.background = paperBg;
+            p2.style.background = originalBg;
 
             flipbook.appendChild(p1);
             flipbook.appendChild(p2);
 
-            // turn.js fallback
-            if (
-                typeof jQuery === "undefined" ||
-                !jQuery.fn.turn
-            ) {
-
+            // turn.js check
+            if (typeof jQuery === "undefined" || !jQuery.fn.turn) {
                 overlay.remove();
-
-                if (wrapper) {
-                    wrapper.style.visibility = "visible";
-                }
-
+                if (wrapper) wrapper.style.visibility = "visible";
                 form.submit();
                 return;
             }
 
             let submitted = false;
-            let fallbackTimer = null;  
-
             const cleanup = () => {
-
-                try {
-                    $(flipbook).turn("destroy");
-                } catch (e) {}
-
+                try { $(flipbook).turn("destroy"); } catch(e) {}
             };
 
             try {
-
+                // Initialize turn.js, start on page 1 (which looks blank but matches background)
                 $(flipbook).turn({
                     width: rect.width,
                     height: rect.height,
@@ -128,73 +104,52 @@ document.addEventListener("DOMContentLoaded", () => {
                     autoCenter: true,
                     duration: 650,
                     gradients: true,
-                    acceleration: true
+                    acceleration: true,
+                    page: 1
+                });
+
+                // CRITICAL: Position overlay exactly over original, then make it visible
+                // and hide original in the same paint frame – no gap
+                requestAnimationFrame(() => {
+                    // Update position in case of scroll
+                    const newRect = page.getBoundingClientRect();
+                    overlay.style.left = newRect.left + "px";
+                    overlay.style.top = newRect.top + "px";
+                    
+                    requestAnimationFrame(() => {
+                        overlay.style.visibility = "visible";
+                        overlay.style.opacity = "1";
+                        if (wrapper) wrapper.style.visibility = "hidden";
+                        
+                        // Start the flip animation immediately
+                        $(flipbook).turn("page", 2);
+                    });
                 });
 
                 const handleTurned = (e, pageNum) => {
-
                     if (pageNum === 2 && !submitted) {
-
                         submitted = true;
-
-                        // submit immediately
-                       setTimeout(() => {
-                            form.submit();
-                        }, 250);
+                        setTimeout(() => form.submit(), 250);
                     }
                 };
 
-                fallbackTimer = setTimeout(() => {
-                    if (!submitted) {
-                        submitted = true;
-                        cleanup();
-                        form.submit();
-                    }
-                }, 1500);
+                $(flipbook).on("turned", handleTurned);
 
-                $(flipbook).on(
-                    "turned",
-                    handleTurned
-                );
-
-                requestAnimationFrame(() => {
-
-                    $(flipbook).turn(
-                        "page",
-                        2
-                    );
-                });
-
-                // emergency fallback
+                // Safety timeout
                 setTimeout(() => {
-
                     if (!submitted) {
-
                         submitted = true;
-
                         cleanup();
-
                         form.submit();
                     }
-
                 }, 1500);
 
             } catch (err) {
-
                 console.error(err);
-
                 cleanup();
-
-                if (wrapper) {
-                    wrapper.style.visibility =
-                        "visible";
-                }
-
+                if (wrapper) wrapper.style.visibility = "visible";
                 form.submit();
             }
-
         });
-
     });
-
 });
