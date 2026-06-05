@@ -46,20 +46,16 @@ def begin():
 
 @app.route("/story", methods=["GET", "POST"])
 def story():
-
     current_id = session["current_node"]
-
     current_node = main_story.find(current_id)
-
     chapter_index = CHAPTER_ORDER.index(current_id) + 1
 
-    # HANDLE CHOICE
+    # HANDLE CHOICE (POST)
     if request.method == "POST":
-
         choice_index = int(request.form.get("choice"))
         chosen_choice = current_node.choices[choice_index]
 
-        # record this choice in the session history
+        # record choice in session history
         hist = session.get("history", [])
         hist.append({
             "node_id": current_node.id,
@@ -80,44 +76,69 @@ def story():
 
         next_id = chosen_choice.next_id
 
-        # 🚨 END CONDITION
+        # END CONDITION
         if next_id == "ending":
-
             ending_type = get_ending(
                 session["fatigue"],
                 session["selfworth"],
                 session["belonging"],
                 session["tension"],
             )
+            # Store ending type in session for the ending page
+            session["ending_type"] = ending_type
+            # For AJAX or normal POST, redirect to ending page
+            return redirect("/ending")
 
-            return render_template(
-                "ending.html",
-                ending=ending_type,
-                history=session.get("history", []),
-                stats={
-                    "fatigue": session.get("fatigue", 0),
-                    "belonging": session.get("belonging", 0),
-                    "selfworth": session.get("selfworth", 0),
-                    "tension": session.get("tension", 0),
-                }
-            )
-
-        # normal flow
+        # Normal flow: update current node
         session["current_node"] = next_id
-        return redirect("/story")
-    next_node = None
 
+        # If this is an AJAX request, return only the story HTML (no layout)
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            new_node = main_story.find(next_id)
+            new_chapter_index = CHAPTER_ORDER.index(next_id) + 1
+            # Compute next_node for the template (for the hidden next page preview)
+            next_node = None
+            if new_node.choices:
+                first_next_id = new_node.choices[0].next_id
+                if first_next_id != "ending":
+                    next_node = main_story.find(first_next_id)
+            # Render only the story template (without base.html)
+            return render_template(
+                "story.html",
+                node=new_node,
+                chapter=new_chapter_index,
+                next_node=next_node
+            )
+        else:
+            # Normal form submit (non-AJAX) – redirect to GET /story
+            return redirect("/story")
+
+    # GET request: normal page load
+    next_node = None
     if current_node.choices:
         first_next_id = current_node.choices[0].next_id
-
         if first_next_id != "ending":
             next_node = main_story.find(first_next_id)
-            
+
     return render_template(
         "story.html",
         node=current_node,
         chapter=chapter_index,
         next_node=next_node
+    )
+@app.route("/ending")
+def ending():
+    ending_type = session.get("ending_type", "balanced")
+    return render_template(
+        "ending.html",
+        ending=ending_type,
+        history=session.get("history", []),
+        stats={
+            "fatigue": session.get("fatigue", 0),
+            "belonging": session.get("belonging", 0),
+            "selfworth": session.get("selfworth", 0),
+            "tension": session.get("tension", 0),
+        }
     )
 def get_ending(fatigue, selfworth, belonging, tension):
 

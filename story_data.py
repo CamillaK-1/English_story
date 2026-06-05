@@ -120,7 +120,7 @@ main_story.add_choice(
 
 main_story.add_choice(
     "bill",
-    "You point out, “I asked for the bill. Why did you give it to my dad?”",
+    "You point out, “I asked for the bill. Why did you give it to my husband?”",
     "loss",
 
     fatigue_change= 1, 
