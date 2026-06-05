@@ -59,8 +59,7 @@
 
 </div>
 
-
-<!-- Hidden next-page template for flip animation -->
+<!-- Hidden page used during the flip animation -->
 
 <div id="next-page-template" style="display:none;">
 
@@ -79,6 +78,22 @@
         <p class="story-text">
             {{ next_node.description }}
         </p>
+
+        <div class="choices">
+
+            {% for choice in next_node.choices %}
+
+            <!-- Visual placeholders only -->
+            <button
+                class="choice-btn"
+                type="button"
+            >
+                {{ choice.title }}
+            </button>
+
+            {% endfor %}
+
+        </div>
 
     </div>
 
