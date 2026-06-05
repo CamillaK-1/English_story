@@ -11,6 +11,8 @@ And when the cricket club coach says, you girls are only here to date the boys, 
 """
 )
 
+# -----------------------
+
 # -------------------------
 # CHAPTER 1: CRICKET CLUB
 # -------------------------
@@ -22,8 +24,8 @@ main_story.add_choice(
 
     fatigue_change=2,
     selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    belonging_change= -1,
+    tension_change= -1
 )
 
 main_story.add_choice(
@@ -31,10 +33,10 @@ main_story.add_choice(
     "You force a small laugh to blend in.",
     "socks",
 
-    fatigue_change=1,
-    belonging_change=2,
-    selfworth_change=-1,
-    tension_change=-2
+    fatigue_change= 1,
+    belonging_change= 2,
+    selfworth_change= -1,
+    tension_change= -2
 )
 
 main_story.add_choice(
@@ -42,10 +44,10 @@ main_story.add_choice(
     "You speak up quietly: “That’s not why I’m here.”",
     "socks",
 
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=-2,
-    tension_change=2
+    fatigue_change= 1,
+    selfworth_change= 2, 
+    belonging_change= -2, 
+    tension_change= -2
 )
 
 # -------------------------
@@ -65,10 +67,10 @@ main_story.add_choice(
     "You stay silent and go change your socks.",
     "bill",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 2, 
+    selfworth_change= -2, 
+    belonging_change= -1, 
+    tension_change= -1
 )
 
 main_story.add_choice(
@@ -76,21 +78,21 @@ main_story.add_choice(
     "You ask, “Are you actually serious?”",
     "bill",
 
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=-1,
-    tension_change=2
+    fatigue_change= 1,
+    selfworth_change= 2, 
+    belonging_change= -1, 
+    tension_change= 2
 )
 
 main_story.add_choice(
     "socks",
     "You refuse to take off your socks and storm back to class",
     "bill",
-    
-    fatigue_change=1,
-    selfworth_change=3,
-    belonging_change=-2,
-    tension_change=2
+
+    fatigue_change= 1, 
+    selfworth_change= 3, 
+    belonging_change= -2, 
+    tension_change= 2
 )
 
 # -------------------------
@@ -110,31 +112,32 @@ main_story.add_choice(
     "You say nothing and pay quietly.",
     "loss",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 2, 
+    selfworth_change= -2, 
+    belonging_change= -1, 
+    tension_change= -1
 )
 
 main_story.add_choice(
     "bill",
     "You point out, “I asked for the bill. Why did you give it to my dad?”",
     "loss",
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=-2,
-    tension_change=2
+
+    fatigue_change= 1, 
+    selfworth_change= 2, 
+    belonging_change= -2, 
+    tension_change= 2
 )
 
 main_story.add_choice(
     "bill",
     "You laugh and shake it off but do not leave the waiter a tip",
     "loss",
-    
-    fatigue_change=1,
-    belonging_change=2,
-    selfworth_change=-1,
-    tension_change=-2
+
+    fatigue_change= 1, 
+    belonging_change= 2, 
+    selfworth_change= -1, 
+    tension_change= -2
 )
 
 # -------------------------
@@ -153,11 +156,11 @@ main_story.add_choice(
     "loss",
     "You push back again ‘we don’t need your misogynistic thoughts, thank you very much’",
     "colleague",
-    
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=2,
-    tension_change=2
+
+    fatigue_change= 1, 
+    selfworth_change= 2, 
+    belonging_change= 1, 
+    tension_change= 2
 )
 
 main_story.add_choice(
@@ -165,10 +168,10 @@ main_story.add_choice(
     "You stay quiet behind your mom again",
     "colleague",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 1, 
+    selfworth_change= -2, 
+    belonging_change= -2, 
+    tension_change= -1
 )
 
 main_story.add_choice(
@@ -176,10 +179,10 @@ main_story.add_choice(
     "You apologize and thank him for the food",
     "colleague",
 
-    fatigue_change=1,
-    selfworth_change=-1,
-    belonging_change=2,
-    tension_change=-2
+    fatigue_change= 1, 
+    selfworth_change= -2, 
+    belonging_change= 2, 
+    tension_change= -2
 )
 
 # -------------------------
@@ -199,10 +202,10 @@ main_story.add_choice(
     "You stay silent and say nothing.",
     "drive",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 1, 
+    selfworth_change= -2, 
+    belonging_change= -1, 
+    tension_change= -1
 )
 
 main_story.add_choice(
@@ -210,10 +213,10 @@ main_story.add_choice(
     "You respond, “That’s a disgusting thing to say. Who are you to measure women?”",
     "drive",
 
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=-2,
-    tension_change=2
+    fatigue_change= 1, 
+    selfworth_change= 2, 
+    belonging_change= -2, 
+    tension_change= 2
 )
 
 main_story.add_choice(
@@ -221,10 +224,10 @@ main_story.add_choice(
     "You try to laugh it off and change the subject.",
     "drive",
 
-    fatigue_change=1,
-    belonging_change=2,
-    selfworth_change=-1,
-    tension_change=-2
+    fatigue_change= 1, 
+    belonging_change= 1, 
+    selfworth_change= -1, 
+    tension_change= -2
 )
 
 # -------------------------
@@ -252,10 +255,10 @@ main_story.add_choice(
     "You say nothing and don't order, driving away quickly",
     "professor",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 2, 
+    selfworth_change= -2, 
+    belonging_change= -1, 
+    tension_change= -1
 )
 
 main_story.add_choice(
@@ -263,10 +266,10 @@ main_story.add_choice(
     "You reply, “Excuse me?”",
     "professor",
 
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=-2,
-    tension_change=2    
+    fatigue_change= 1, 
+    selfworth_change= 2, 
+    belonging_change= -2, 
+    tension_change= 2
 )
 
 main_story.add_choice(
@@ -274,10 +277,10 @@ main_story.add_choice(
     "You force a small smile and joke “of course I can “",
     "professor",
 
-    fatigue_change=1,
-    belonging_change=2,
-    selfworth_change=-1,
-    tension_change=-2
+    fatigue_change= 1, 
+    belonging_change= 2, 
+    selfworth_change= -1, 
+    tension_change= -2
 )
 
 # -------------------------
@@ -297,21 +300,21 @@ main_story.add_choice(
     "You stay silent and nod.",
     "counselor",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 2, 
+    selfworth_change= -2, 
+    belonging_change= -1, 
+    tension_change= -1
 )
 
 main_story.add_choice(
     "professor",
     "You say, “Of course?”",
     "counselor",
-    
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=-2,
-    tension_change=2
+
+    fatigue_change= 1, 
+    selfworth_change= 2, 
+    belonging_change= -2, 
+    tension_change= 2
 )
 
 main_story.add_choice(
@@ -319,10 +322,10 @@ main_story.add_choice(
     "You change the subject politely.",
     "counselor",
 
-    fatigue_change=1,
-    belonging_change=2,
-    selfworth_change=-1,
-    tension_change=-2
+    fatigue_change= 1, 
+    belonging_change= 2, 
+    selfworth_change= -1, 
+    tension_change= -2
 )
 
 # -------------------------
@@ -358,10 +361,10 @@ main_story.add_choice(
     "You sigh and leave the room quietly.",
     "tv",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 2, 
+    selfworth_change= -2, 
+    belonging_change= -1, 
+    tension_change= -1
 )
 
 main_story.add_choice(
@@ -369,10 +372,10 @@ main_story.add_choice(
     "You correct him firmly and restate your goals.",
     "tv",
 
-    fatigue_change=1,
-    selfworth_change=3,
-    belonging_change=-2,
-    tension_change=3
+    fatigue_change= 1, 
+    selfworth_change= 3, 
+    belonging_change= -2, 
+    tension_change= 3
 )
 
 main_story.add_choice(
@@ -380,10 +383,10 @@ main_story.add_choice(
     "You smile and move on, saying you’ll think about nursing.",
     "tv",
 
-    fatigue_change=1,
-    belonging_change=2,
-    selfworth_change=-1,
-    tension_change=-2
+    fatigue_change= 1, 
+    belonging_change= 2, 
+    selfworth_change= -1, 
+    tension_change= -2
 )
 
 # -------------------------
@@ -403,10 +406,10 @@ main_story.add_choice(
     "Turn off the TV and disengage",
     "ending",
 
-    fatigue_change=2,
-    selfworth_change=-2,
-    belonging_change=-1,
-    tension_change=-1
+    fatigue_change= 2, 
+    selfworth_change= -2, 
+    belonging_change= -1, 
+    tension_change= -1
 )
 
 main_story.add_choice(
@@ -414,10 +417,10 @@ main_story.add_choice(
     "Turn on the volume again to continue watching, hoping for a good response from Sally Ride",
     "ending",
 
-    fatigue_change=1,
-    belonging_change=2,
-    selfworth_change=1,
-    tension_change=0
+    fatigue_change= 1, 
+    belonging_change= 2, 
+    selfworth_change= 1, 
+    tension_change= 0
 )
 
 main_story.add_choice(
@@ -425,8 +428,8 @@ main_story.add_choice(
     "Post on instagram about how frustrating their lack of knowledge is",
     "ending",
 
-    fatigue_change=1,
-    selfworth_change=2,
-    belonging_change=-2,
-    tension_change=3
+    fatigue_change= 1, 
+    selfworth_change= 2, 
+    belonging_change= -2, 
+    tension_change= 2
 )

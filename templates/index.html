@@ -1,52 +1,46 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<div class="intro-scene">
+<!-- SPLASH SCREEN -->
+<div id="splashScreen" class="splash-screen">
+    <div class="splash-content">
+        <h1 class="project-title">Camilla &amp; Emily's</h1>
+        <h2 class="project-subtitle">English Personal Project</h2>
+        <p class="splash-message">Invisible Weight</p>
+    </div>
+</div>
 
+<!-- MAIN INTRO SCENE -->
+<div class="intro-scene" id="mainIntro">
     <!-- background image -->
     <div class="background-image"
-    style="background-image: url('/static/Background.png'); height: 100vh;">
+         style="background-image: url('/static/Background.png'); height: 100vh;">
     </div>
-
     <!-- dark overlay -->
     <div class="scene-overlay"></div>
-
     <!-- floating label -->
     <div class="click-label">
         Click the Book
     </div>
-
     <!-- camera -->
     <div class="camera-view" id="cameraView">
-
         <!-- interactive book -->
         <div class="intro-book" id="introBook">
-
             <div class="book-cover-design">
-
                 <div class="cover-border"></div>
-
                 <div class="book-title">
                     Invisible Weight
                 </div>
-
                 <div class="book-subtitle">
                     An Interactive Narrative
                 </div>
-
             </div>
-
             <div class="book-pages">
                 <div class="page-panel"></div>
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <script src="{{ url_for('static', filename='intro.js') }}"></script>
-
 {% endblock %}

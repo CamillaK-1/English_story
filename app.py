@@ -87,7 +87,7 @@ def story():
                 session["fatigue"],
                 session["selfworth"],
                 session["belonging"],
-                session["tension"]
+                session["tension"],
             )
 
             return render_template(
@@ -113,19 +113,41 @@ def story():
     )
 def get_ending(fatigue, selfworth, belonging, tension):
 
-    if fatigue >= 16:
+    scores = {
+        "high_fatigue": fatigue,
+        "low_selfworth": -selfworth,
+        "low_belonging": -belonging,
+        "high_tension": tension
+    }
+
+    # find strongest emotional force
+    top_ending = max(scores, key=scores.get)
+    top_value = scores[top_ending]
+
+    # thresholds (soft gates, not hard locks)
+    thresholds = {
+        "high_fatigue": 12,
+        "low_selfworth": 8,
+        "low_belonging": 8,
+        "high_tension": 10
+    }
+
+    # if strong enough → that ending
+    if top_value >= thresholds[top_ending]:
+        return top_ending
+
+    # fallback logic (important for your “Balanced” ending)
+    burnout_score = fatigue + tension
+    identity_score = selfworth + belonging
+
+    if burnout_score > 18:
         return "high_fatigue"
 
-    if selfworth <= -10:
+    if identity_score < -10:
         return "low_selfworth"
 
-    if tension >= 14:
-        return "high_tension"
-
-    if belonging <= -10:
-        return "low_belonging"
-
     return "balanced"
+    
 if __name__ == "__main__":
 
     app.run(debug=True)

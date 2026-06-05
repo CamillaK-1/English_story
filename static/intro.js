@@ -46,3 +46,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const splash = document.getElementById('splashScreen');
+    const mainIntro = document.getElementById('mainIntro');
+
+    // Gentle crossfade
+    setTimeout(() => {
+        splash.style.opacity = '0';
+        
+        // Start fading in the main scene while splash is still fading out
+        setTimeout(() => {
+            mainIntro.style.opacity = '1';
+        }, 400); // slight overlap for smoother blend
+
+        // Remove splash completely after transition
+        setTimeout(() => {
+            splash.style.display = 'none';
+        }, 2800);
+    }, 1600); // Time the splash is fully visible before starting fade
+});
