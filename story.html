@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="library-background">
+    <div class="book-wrapper">
+
+        <div class="flipbook">
+
+            <div class="page">
+                <div class="page-content">
+
+                    <div class="chapter-label">CHAPTER {{ chapter }}</div>
+
+                    <h1>{{ node.title }}</h1>
+
+                    <div class="ornament"></div>
+
+                    <p class="story-text">
+                        {{ node.description }}
+                    </p>
+
+                    <div class="choices">
+
+                        {% for choice in node.choices %}
+
+                        <form method="POST" class="story-form">
+
+                            <!-- send index instead of id -->
+                            <input type="hidden" name="choice" value="{{ loop.index0 }}">
+
+                            <button class="choice-btn" type="submit">
+                                {{ choice.title }}
+                            </button>
+
+                        </form>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

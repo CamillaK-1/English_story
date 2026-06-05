@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="intro-scene">
+
+    <!-- background image -->
+    <div class="background-image"></div>
+
+    <!-- dark overlay -->
+    <div class="scene-overlay"></div>
+
+    <!-- floating label -->
+    <div class="click-label">
+        Click the Book
+    </div>
+
+    <!-- camera -->
+    <div class="camera-view" id="cameraView">
+
+        <!-- interactive book -->
+        <div class="intro-book" id="introBook">
+
+            <div class="book-cover-design">
+
+                <div class="cover-border"></div>
+
+                <div class="book-title">
+                    Invisible Weight
+                </div>
+
+                <div class="book-subtitle">
+                    An Interactive Narrative
+                </div>
+
+            </div>
+
+            <div class="book-pages">
+                <div class="page-panel"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='intro.js') }}"></script>
+
+{% endblock %}

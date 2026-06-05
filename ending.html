@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="library-background">
+    <div class="book-wrapper">
+
+        <div class="flipbook">
+
+            <div class="page">
+                <div class="page-content">
+
+                    <div class="chapter-label">
+                        {% if ending == "high_fatigue" %}
+                            High Fatigue
+                        {% elif ending == "low_selfworth" %}
+                            Low Selfworth
+                        {% elif ending == "high_tension" %}
+                            High Emotional Tension
+                        {% elif ending == "low_belonging" %}
+                           Low Sense of Belonging
+                        {% else %}
+                            Balanced
+                        {% endif %}
+                    </div>
+
+                    <h1>
+                       Final Ending
+                    </h1>
+
+                    <div class="ornament"></div>
+
+                    <p class="story-text">
+                        {% if ending == "high_fatigue" %}
+                            The sighs come before the thoughts now. 
+                            You sit down, you sigh. You stand up, you sigh. Someone says you are imagining things. Someone says they didn’t mean it like that. Someone says you should take it as a compliment. Someone says that men will be men. Someone says perhaps you misunderstood. Someone says now there you go now.
+
+                            The world has many ways of asking you to carry it. The body keeps score of what the mind forgets. Somewhere inside you a tally is being taken. 
+
+                            The body keeps score of what the mind forgets.
+                        {% elif ending == "low_selfworth" %}
+                            You begin rehearsing- pretending - excusing. 
+                            And before they finish explaining you have already started translating. He didn’t mean that. You’re over thinking. It wasn’t meant like that. 
+
+                            One day you hear yourself say nursing sounds interesting. The word arrives before you can stop it. The strange thing is how quickly a stranger's voice becomes one in your own mind.
+
+                            You clumsily tell your counselor that maybe nursing is better indeed. Yes, of course, sweetie. 
+
+
+
+                        {% elif ending == "high_tension" %}
+                            The words leave your mouth but carry nothing back. They chuckle, maybe even glare, but not seriously enough because the seriousness was never there.
+                            The body learns before the mind does. So you find yourself with your jaw clenched, the muscles bracing against comments yet to have been made.
+
+                            Someone is approaching the man now. Someone tells you to calm down. You weren’t aware you had moved.
+
+
+                        {% elif ending == "low_belonging" %}
+                            The room does not accept you. You are here. Are you? You walk through it daily. You begin to wonder whether belonging is a place or simply the absence of being questioned
+
+                            The doubt is everywhere. It follows you home. It sits next to you on the couch. It watches television with you. You sit inside the four walled room you bought that is much more a house than a home. You are a guest, and always will be.
+
+
+                        {% else %}
+                           
+                            You begin to lose track of which version of yourself answered.You wonder how many times it must happen before it becomes ordinary. The drip never stops. You learn to sit with it, to understand it, because the day has ended and tomorrow will simply ask for another version of you. The television light moves across the room. You turn up the volume to soothe your ache.
+
+
+                        {% endif %}
+
+                    </p>
+
+                    <div style="margin-top: 40px; display: flex; gap: 16px;">
+                        <a href="/" class="restart-book-btn">
+                            Read Again
+                        </a>
+
+                        <button id="whyBtn" class="restart-book-btn">Why you got that ending</button>
+                    </div>
+
+                    <div id="reasoning" class="reasoning-panel">
+
+                        <h3 class="reasoning-title">
+                            How the ending was deduced
+                        </h3>
+
+                        <div class="reasoning-stats">
+                            Final stats — Fatigue: {{ stats.fatigue }},
+                            Selfworth: {{ stats.selfworth }},
+                            Belonging: {{ stats.belonging }},
+                            Tension: {{ stats.tension }}
+                        </div>
+
+                        <div class="reasoning-text">
+                            The app computes four candidate scores: fatigue, -selfworth,
+                            tension and -belonging. It selects the largest candidate and
+                            compares it to a threshold (fatigue≥14, low selfworth≥6,
+                            tension≥12, low belonging≥5). If the top candidate meets its
+                            threshold, that specific ending is shown; otherwise the ending
+                            is Balanced.
+                        </div>
+
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function(){
+                            var btn = document.getElementById('whyBtn');
+                            var panel = document.getElementById('reasoning');
+                            if (!btn) return;
+                            btn.addEventListener('click', function(){
+                                if (panel.style.display === 'none') panel.style.display = 'block'; else panel.style.display = 'none';
+                                btn.textContent = panel.style.display === 'none' ? 'Why you got that ending' : 'Hide reasoning';
+                            });
+                        });
+                    </script>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
