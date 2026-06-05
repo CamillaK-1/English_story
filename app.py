@@ -3,7 +3,9 @@ from flask import Flask, render_template, request, redirect, session
 from story_data import main_story
 
 
-app = Flask(__name__)
+app = Flask(__name__, 
+            template_folder='templates',   # ← Add this
+            static_folder='static')        # ← Good practice too
 
 app.secret_key = "secret-key"
 
