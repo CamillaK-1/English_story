@@ -3,14 +3,18 @@
 {% block content %}
 
 <div class="library-background">
+
     <div class="book-wrapper">
 
         <div class="flipbook">
 
             <div class="page">
+
                 <div class="page-content">
 
-                    <div class="chapter-label">CHAPTER {{ chapter }}</div>
+                    <div class="chapter-label">
+                        CHAPTER {{ chapter }}
+                    </div>
 
                     <h1>{{ node.title }}</h1>
 
@@ -26,10 +30,16 @@
 
                         <form method="POST" class="story-form">
 
-                            <!-- send index instead of id -->
-                            <input type="hidden" name="choice" value="{{ loop.index0 }}">
+                            <input
+                                type="hidden"
+                                name="choice"
+                                value="{{ loop.index0 }}"
+                            >
 
-                            <button class="choice-btn" type="submit">
+                            <button
+                                class="choice-btn"
+                                type="submit"
+                            >
                                 {{ choice.title }}
                             </button>
 
@@ -40,11 +50,40 @@
                     </div>
 
                 </div>
+
             </div>
 
         </div>
 
     </div>
+
+</div>
+
+
+<!-- Hidden next-page template for flip animation -->
+
+<div id="next-page-template" style="display:none;">
+
+    {% if next_node %}
+
+    <div class="page-content">
+
+        <div class="chapter-label">
+            CHAPTER {{ chapter + 1 }}
+        </div>
+
+        <h1>{{ next_node.title }}</h1>
+
+        <div class="ornament"></div>
+
+        <p class="story-text">
+            {{ next_node.description }}
+        </p>
+
+    </div>
+
+    {% endif %}
+
 </div>
 
 {% endblock %}

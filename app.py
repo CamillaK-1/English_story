@@ -105,11 +105,19 @@ def story():
         # normal flow
         session["current_node"] = next_id
         return redirect("/story")
+    next_node = None
 
+    if current_node.choices:
+        first_next_id = current_node.choices[0].next_id
+
+        if first_next_id != "ending":
+            next_node = main_story.find(first_next_id)
+            
     return render_template(
         "story.html",
         node=current_node,
-        chapter=chapter_index
+        chapter=chapter_index,
+        next_node=next_node
     )
 def get_ending(fatigue, selfworth, belonging, tension):
 
