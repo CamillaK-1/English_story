@@ -69,14 +69,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const originalBg = window.getComputedStyle(page).background;
             p1.style.background = originalBg;
 
-            // PAGE 2 = next chapter (fully visible)
+            // PAGE 2 = next chapter with placeholder during animation
             const p2 = document.createElement("div");
             p2.className = "book-page";
 
             const template = document.querySelector("#next-page-template");
+            let contentClone = null;
             if (template) {
-                p2.innerHTML = template.innerHTML;
+                contentClone = template.cloneNode(true);
+                // Remove the display:none style from template
+                contentClone.style.display = "";
+                // Initially hide the content
+                contentClone.style.opacity = "0";
+                contentClone.style.visibility = "hidden";
+                p2.appendChild(contentClone);
             }
+            
+            // Set background to match the expected page background
             p2.style.background = originalBg;
 
             flipbook.appendChild(p1);
@@ -129,7 +138,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 const handleTurned = (e, pageNum) => {
                     if (pageNum === 2 && !submitted) {
                         submitted = true;
-                        setTimeout(() => form.submit(), 250);
+                        
+                        // After flip completes, fade in the content quickly
+                        if (contentClone) {
+                            contentClone.style.visibility = "visible";
+                            contentClone.style.transition = "opacity 0.4s ease-in";
+                            
+                            // Trigger reflow to ensure the visibility change takes effect
+                            void contentClone.offsetHeight;
+                            
+                            contentClone.style.opacity = "1";
+                        }
+                        
+                        // Submit form after content fade is complete
+                        setTimeout(() => form.submit(), 600);
                     }
                 };
 
@@ -142,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         cleanup();
                         form.submit();
                     }
-                }, 1500);
+                }, 2500);
 
             } catch (err) {
                 console.error(err);
@@ -153,3 +175,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+
